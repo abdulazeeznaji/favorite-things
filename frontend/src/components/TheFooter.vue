@@ -2,7 +2,7 @@
   <footer>
     <div class="container">
       <router-link class="logo-font" :to="{ name: 'home', params: {} }">
-        Insurance - Magic
+      Favorite
       </router-link>
       <span class="attribution">
         Your favorite place for your favorite things
@@ -15,6 +15,6 @@
 
 <script>
 export default {
-  name: "RwvFooter"
-};
+  name: 'RwvFooter'
+}
 </script>

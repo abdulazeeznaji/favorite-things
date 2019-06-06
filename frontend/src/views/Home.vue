@@ -10,11 +10,7 @@
 </template>
 
 <script>
-import RwvTag from "@/components/VTag";
 export default {
-  name: "home",
-  components: {
-    RwvTag
-  }
-};
+
+}
 </script>

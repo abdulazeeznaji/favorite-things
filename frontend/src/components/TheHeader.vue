@@ -40,12 +40,12 @@
   </nav>
 </template>
 
- <script>
-import { mapGetters } from "vuex";
- export default {
-  name: "RwvHeader",
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  name: 'RwvHeader',
   computed: {
-    ...mapGetters(["currentUser"])
+    ...mapGetters(['currentUser'])
   }
-};
+}
 </script>

@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "RwvTag",
+  name: 'RwvTag',
   props: {
     name: {
       type: String,
@@ -17,8 +17,8 @@ export default {
     },
     className: {
       type: String,
-      default: "tag-pill tag-default"
+      default: 'tag-pill tag-default'
     }
   }
-};
+}
 </script>
