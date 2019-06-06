@@ -1,0 +1,11 @@
+{
+  "name": "brite-core",
+  "version": "1.0.0",
+  "description": " VueJS as a Single Page App to allow users interacts with data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
