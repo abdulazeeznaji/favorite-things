@@ -1,5 +1,5 @@
 import { FavoriteService } from "@/common/api.service";
-import { FETCH_ARTICLES, FETCH_TAGS } from "./actions.type";
+import { FETCH_FAVORITES } from "./actions.type";
 import {
   FETCH_START,
   FETCH_END,
@@ -20,7 +20,7 @@ const getters = {
 };
 
 const actions = {
-  [FETCH_ARTICLES]({ commit }, params) {
+  [FETCH_FAVORITES]({ commit }, params) {
     commit(FETCH_START);
     return FavoriteService.query(params.type, params.filters)
       .then(({ data }) => {
