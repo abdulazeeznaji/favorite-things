@@ -15,6 +15,20 @@ class Favorites(db.Model):
     category = db.relationship('Category', backref='favorites')
     last_time = db.Column(DateTime, onupdate=func.utc_timestamp())
 
+    @property
+    def serialize(self):
+        """
+        Return serialized feature info
+        :return dict:
+        """
+        return {
+            'id': self.id,
+            'title': self.title,
+            'description': self.description,
+            'ranking': self.ranking,
+            'created_date': self.created_date,
+        }
+
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
