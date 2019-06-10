@@ -7,32 +7,42 @@
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
           <router-link
-            class="nav-link"
-            active-class="active"
-            exact
-            :to="{ name: 'home' }"
+                  class="nav-link"
+                  active-class="active"
+                  exact
+                  :to="{ name: 'home' }"
           >
             Home
           </router-link>
         </li>
         <li class="nav-item">
           <router-link
-            class="nav-link"
-            active-class="active"
-            exact
-            :to="{ name: 'login' }"
+                  class="nav-link"
+                  active-class="active"
+                  exact
+                  :to="{ name: 'login' }"
           >
             <i class="ion-compose"></i>Sign in
           </router-link>
         </li>
         <li class="nav-item">
           <router-link
-            class="nav-link"
-            active-class="active"
-            exact
-            :to="{ name: 'register' }"
+                  class="nav-link"
+                  active-class="active"
+                  exact
+                  :to="{ name: 'register' }"
           >
             <i class="ion-compose"></i>Sign up
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link
+                  class="nav-link"
+                  active-class="active"
+                  exact
+                  :to="{ name: 'home' }"
+          >
+            Home
           </router-link>
         </li>
       </ul>
@@ -41,11 +51,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-export default {
-  name: 'RwvHeader',
-  computed: {
-    ...mapGetters(['currentUser'])
+  import { mapGetters } from 'vuex'
+  export default {
+    name: 'RwvHeader',
+    computed: {
+      ...mapGetters(['currentUser'])
+    }
   }
-}
 </script>
