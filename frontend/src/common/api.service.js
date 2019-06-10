@@ -18,3 +18,11 @@ const ApiService = {
 };
 
 export default ApiService;
+
+export const FavoriteService = {
+  query(type, params) {
+    return ApiService.query("favorites" + (type === "feed" ? "/feed" : ""), {
+      params: params
+    });
+  }
+};
