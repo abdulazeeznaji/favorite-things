@@ -1,9 +1,9 @@
 <template>
   <div class="article-preview">
-    <RwvArticleMeta isPreview :article="article" />
+    <RwvArticleMeta isPreview :favorite="favorite" />
     <router-link :to="articleLink" class="preview-link">
-      <h1 v-text="article.title" />
-      <p v-text="article.description" />
+      <h1 v-text="favorite.title" />
+      <p v-text="favorite.description" />
       <span>Read more...</span>
     </router-link>
   </div>
@@ -16,15 +16,12 @@ export default {
   components: {
   },
   props: {
-    article: { type: Object, required: true }
+    favorite: { type: Object, required: true }
   },
   computed: {
     articleLink() {
       return {
-        name: "article",
-        params: {
-          slug: this.article.slug
-        }
+        name: "favorite",
       };
     }
   }

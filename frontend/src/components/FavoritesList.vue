@@ -51,7 +51,7 @@ export default {
       };
     },
 
-    ...mapGetters([ "isLoading", "favorites"])
+    ...mapGetters(["articlesCount", "isLoading", "favorites"])
   },
   mounted() {
     this.fetchArticles();
