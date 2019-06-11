@@ -15,6 +15,12 @@ class Favorites(db.Model):
     category = db.relationship('Category', backref='favorites')
     last_time = db.Column(DateTime, onupdate=func.utc_timestamp())
 
+    def __init__(self, title, description, ranking, created_date, category_area_id):
+        self.title = title
+        self.description = description
+        self.ranking = ranking
+        self.created_date = created_date
+        self.category_area_id = category_area_id
     @property
     def serialize(self):
         """
