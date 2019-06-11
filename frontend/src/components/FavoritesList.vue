@@ -51,13 +51,13 @@ export default {
       };
     },
 
-    ...mapGetters(["articlesCount", "isLoading", "favorites"])
+    ...mapGetters([ "isLoading", "favorites"])
   },
   mounted() {
-    this.fetchArticles();
+    this.fetchFavorite();
   },
   methods: {
-    fetchArticles() {
+    fetchFavorite() {
       this.$store.dispatch(FETCH_FAVORITES, this.listConfig);
     }
   }
