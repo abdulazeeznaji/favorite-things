@@ -36,7 +36,7 @@ const mutations = {
   [FETCH_START](state) {
     state.isLoading = true;
   },
-  [FETCH_END](state, { favorites, articlesCount }) {
+  [FETCH_END](state, { favorites }) {
     state.favorites = favorites;
     state.isLoading = false;
   }
