@@ -1,0 +1,39 @@
+{
+    "base": {
+        "app_function": "app.__init__.application",
+        "profile_name": "default",
+        "project_name": "backend",
+        "aws_region": "us-east-1",
+        "s3_bucket": "zappa-bgl2q31wy",
+        "runtime": "python3.6",
+        "memory_size": 512,
+        "exclude": [
+            ".git",
+            "venv",
+            "config.env",
+            "app/static",
+            "upload_assets.py"
+        ],
+        "aws_environment_variables": {
+            "APP_SETTINGS": "config.ProductionConfig",
+            "APP_NAME": "",
+            "FLASKS3_BUCKET_NAME": "",
+            "FLASKS3_URL_STYLE": "path",
+            "FLASKS3_BUCKET_DOMAIN": "",
+            "EMAIL_SENDER": "",
+            "MAIL_SERVER": "smtp.mailgun.org",
+            "MAIL_PORT": "587",
+            "MAIL_USE_TLS": "True"
+        }
+    },
+    "development": {
+        "extends": "base",
+        "keep_warm": false,
+        "manage_roles": false,
+        "role_name": ""
+    },
+    "production": {
+        "extends": "base",
+        "keep_warm_expression": "rate(15 minutes)"
+    }
+}

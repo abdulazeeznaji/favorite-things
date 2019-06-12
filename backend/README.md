@@ -15,3 +15,21 @@ source env/bin/activate
 ```
 pip install -r requirements.txt
 ```
+
+
+Deployment
+----------
+
+deploy using AWS Lambda and zappa.
+
+Install `zappa`:
+
+```
+  $ pip install zappa
+```
+
+Install `aws-cli` to run cloudformation template:
+
+```
+  $ pip install aws-cli
+```
