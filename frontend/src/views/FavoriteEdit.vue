@@ -31,12 +31,11 @@
                 />
               </fieldset>
               <fieldset class="form-group">
-                <select
-                        type="text"
-                        class="form-control"
-                        v-model="favorite.category"
-                        placeholder="Category"
-                />
+                <select v-model="favorite.selected">
+                  <option v-for="category in favorite.categories" v-bind:value="category.id">
+                    {{ category.name }}
+                  </option>
+                </select>
               </fieldset>
               <fieldset class="form-group">
                 <input
@@ -69,6 +68,7 @@
   import RwvListErrors from "@/components/ListErrors";
   import {
     FAVORITE_PUBLISH,
+    FETCH_CATEGORIES
   } from "@/store/actions.type";
 
   export default {
@@ -87,8 +87,15 @@
         errors: {}
       };
     },
+    beforeRouteEnter(to, from, next) {
+      Promise.all([
+        store.dispatch(FETCH_CATEGORIES, to.params.slug),
+      ]).then(() => {
+      next();
+      });
+    },
     computed: {
-      ...mapGetters(["favorite"])
+      ...mapGetters(["favorite", "categories", "selected"])
     },
     methods: {
       onPublish(slug) {
