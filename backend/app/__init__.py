@@ -25,12 +25,11 @@ def api_feature_get():
 # Create new favorite
 @application.route('/api/favorites', methods=['POST'])
 def api_favorite_post():
-
     ranking = request.json.get('ranking') \
         if request.json.get('ranking') \
-        else db.session.query(db.func.max(Favorites.ranking)).filter(Favorites.category == request.json.get('category')).scalar() + 1 or 1
+        else db.session.query(db.func.max(Favorites.ranking)).filter(Favorites.category == request.json.get('selected')).scalar() + 1 or 1
 
-    favorites = Favorites.query.filter(Favorites.category_area_id == request.json.get('category'), Favorites.ranking >= ranking).order_by(Favorites.ranking).all()
+    favorites = Favorites.query.filter(Favorites.category_area_id == request.json.get('selected'), Favorites.ranking >= ranking).order_by(Favorites.ranking).all()
     i = int(ranking)
 
     for favorite in favorites:
@@ -42,9 +41,19 @@ def api_favorite_post():
                      request.json.get('description'),
                      ranking,
                      created_date,
-                     request.json.get('category'),
+                     request.json.get('selected'),
                      )
 
     db.session.add(data)
     db.session.commit()
     return jsonify({'message': 'Favorite successfully added'}), 201
+
+
+# Categories GET API
+@application.route('/api/categories', methods=['GET'])
+def api_client_get():
+    category_query = Category.query.all()
+    category_list = []
+    for c in category_query:
+        category_list.append(c.serialize)
+    return jsonify({'categories': category_list})
