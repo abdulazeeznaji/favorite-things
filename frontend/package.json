@@ -6,7 +6,8 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --ext .js,.vue src test/unit"
+    "lint": "eslint --ext .js,.vue src test/unit",
+    "build": "node build/build.js"
   },
   "author": "",
   "license": "ISC",
@@ -55,7 +56,7 @@
     "jest-serializer-vue": "^0.3.0",
     "node-notifier": "^5.1.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
-    "ora": "^1.2.0",
+    "ora": "^1.4.0",
     "portfinder": "^1.0.13",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
