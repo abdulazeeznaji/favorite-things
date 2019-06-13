@@ -16,7 +16,7 @@ const ApiService = {
         });
     },
     get(resource, slug = "") {
-        return Vue.axios.get(`${resource}/${slug}`).catch(error => {
+        return Vue.axios.get(`${resource}`).catch(error => {
             throw new Error(`[RWV] ApiService ${error}`);
         });
     },
@@ -40,5 +40,19 @@ export const FavoriteService = {
     },
     create(params) {
         return ApiService.post("favorites", params );
+    },
+};
+
+export const CategoriesService = {
+    query(type, params) {
+        return ApiService.query("categories", {
+            params: params
+        });
+    },
+    get(slug) {
+        return ApiService.get("categories");
+    },
+    create(params) {
+        return ApiService.post("categories", params );
     },
 };
