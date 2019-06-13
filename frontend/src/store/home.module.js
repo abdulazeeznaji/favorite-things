@@ -37,7 +37,7 @@ const mutations = {
     state.isLoading = true;
   },
   [FETCH_END](state, { favorites }) {
-    state.favorites = favorites;
+      state.favorites = favorites;
     state.isLoading = false;
   }
 };
