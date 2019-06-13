@@ -12,6 +12,13 @@ class Config(object):
 class ProductionConfig(Config):
     DEBUG = False
 
+    # AWS
+    FLASKS3_BUCKET_NAME = os.environ.get('FLASKS3_BUCKET_NAME')
+    FLASKS3_URL_STYLE = os.environ.get('FLASKS3_URL_STYLE')
+    FLASKS3_BUCKET_DOMAIN = os.environ.get('FLASKS3_BUCKET_DOMAIN')
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
 
 class StagingConfig(Config):
     DEVELOPMENT = True
@@ -24,9 +31,8 @@ class DevelopmentConfig(Config):
     """
     Development configurations
     """
-    DEBUG = True
     SQLALCHEMY_ECHO = True
-    SQLALCHEMY_DATABASE_URI = 'mysql + pymysql: // <db_user >: < db_password >@< endpoint > / < db_url >'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://dt_admin:dt2016@localhost/dreamteam'
 
     # Your secret key goes here
     SECRET_KEY = 'p9Bv<3Eid9%$i01'
