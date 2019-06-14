@@ -2,6 +2,16 @@ from app import db
 from sqlalchemy import DateTime
 import datetime
 from sqlalchemy.sql import func
+from sqlalchemy_utils import ChoiceType
+
+
+class Field(db.Model):
+    TYPES = [
+        ('text', 'number', 'date', 'enum')
+    ]
+    __tablename__ = 'flield'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(ChoiceType(TYPES))
 
 
 class Favorites(db.Model):
@@ -49,4 +59,10 @@ class Category(db.Model):
             'id': self.id,
             'name': self.name
         }
+
+
+
+
+
+
 
