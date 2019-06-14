@@ -4,7 +4,7 @@ import {
     CategoriesService
 } from "@/common/api.service";
 import {
-    FETCH_FAVORITE,
+    FAVORITE_DELETE,
     FAVORITE_PUBLISH,
     FETCH_CATEGORIES
 } from "./actions.type";
@@ -49,7 +49,10 @@ export const actions = {
             .catch(error => {
                 throw new Error(error);
             });
-    }
+    },
+    [FAVORITE_DELETE](context, id) {
+        return FavoriteService.destroy(id);
+    },
 };
 
 export const mutations = {

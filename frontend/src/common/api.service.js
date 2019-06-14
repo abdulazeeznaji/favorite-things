@@ -23,6 +23,11 @@ const ApiService = {
     post(resource, params) {
         return Vue.axios.post(`${resource}`, params);
     },
+    delete(resource) {
+        return Vue.axios.delete(resource).catch(error => {
+            throw new Error(`[RWV] ApiService ${error}`);
+        });
+    }
 
 };
 
@@ -41,6 +46,9 @@ export const FavoriteService = {
     create(params) {
         return ApiService.post("favorites", params );
     },
+    destroy(slug) {
+        return ApiService.delete(`favorites/${slug}`);
+    }
 };
 
 export const CategoriesService = {
