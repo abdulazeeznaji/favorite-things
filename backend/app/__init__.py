@@ -22,6 +22,15 @@ def api_feature_get():
     return jsonify({'favorites': favorites_list}), 200
 
 
+# Delete single favorite on api/favorites/<id>
+@application.route('/api/favorites/<int:id>', methods=['DELETE'])
+def api_feature_delete(id):
+    favorite = Favorites.query.get(id)
+    db.session.delete(favorite)
+    db.session.commit()
+    return jsonify({'message': 'Favorite deleted successfully'}), 201
+
+
 # Create new favorite
 @application.route('/api/favorites', methods=['POST'])
 def api_favorite_post():
@@ -36,7 +45,7 @@ def api_favorite_post():
         favorite.ranking = i + 1
         i += 1
         db.session.commit()
-    created_date = datetime.datetime.strptime(request.json.get('created_date'), '%d-%m-%Y')
+    created_date = datetime.datetime.strptime(request.json.get('created_date'), '%m-%d-%Y')
     data = Favorites(request.json.get('title'),
                      request.json.get('description'),
                      ranking,
@@ -57,3 +66,4 @@ def api_client_get():
     for c in category_query:
         category_list.append(c.serialize)
     return jsonify({'categories': category_list})
+
