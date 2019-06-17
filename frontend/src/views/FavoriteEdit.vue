@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-10 offset-md-1 col-xs-12">
           <RwvListErrors :errors="errors" />
-          <form v-on:submit.prevent="onPublish(favorite.slug);">
+          <form v-on:submit.prevent="onPublish(favorite.id);">
             <fieldset :disabled="inProgress">
               <fieldset class="form-group">
                 <input
@@ -68,17 +68,45 @@
   import RwvListErrors from "@/components/ListErrors";
   import {
     FAVORITE_PUBLISH,
-    FETCH_CATEGORIES
+    FETCH_CATEGORIES,
+    FAVORITE_RESET_STATE,
+    FAVORITE_EDIT,
+    FETCH_FAVORITE
+
   } from "@/store/actions.type";
+
 
   export default {
     name: "RwvFavoriteEdit",
     components: { RwvListErrors },
     props: {
-      previousFavorite: {
+      previousArticle: {
         type: Object,
         required: false
       }
+    },
+    async beforeRouteUpdate(to, from, next) {
+      await store.dispatch(FAVORITE_RESET_STATE);
+      return next();
+    },
+    async beforeRouteEnter(to, from, next) {
+      await store.dispatch(FAVORITE_RESET_STATE);
+      if (to.params.slug !== undefined) {
+        await store.dispatch(
+                FETCH_FAVORITE,
+                to.params.slug,
+                to.params.previousFavorite
+        );
+      }
+      Promise.all([
+        store.dispatch(FETCH_CATEGORIES, to.params.slug),
+      ]).then(() => {
+      });
+      return next();
+    },
+    async beforeRouteLeave(to, from, next) {
+      await store.dispatch(FAVORITE_RESET_STATE);
+      next();
     },
     data() {
       return {
@@ -87,19 +115,12 @@
         errors: {}
       };
     },
-    beforeRouteEnter(to, from, next) {
-      Promise.all([
-        store.dispatch(FETCH_CATEGORIES, to.params.slug),
-      ]).then(() => {
-      next();
-      });
-    },
     computed: {
       ...mapGetters(["favorite", "categories", "selected"])
     },
     methods: {
       onPublish(slug) {
-        let action = FAVORITE_PUBLISH;
+        let action = slug ? FAVORITE_EDIT : FAVORITE_PUBLISH;
         this.inProgress = true;
         this.$store
                 .dispatch(action)
@@ -107,7 +128,7 @@
                   this.inProgress = false;
                   this.$router.push({
                     name: "home",
-                    params: { slug: data.favorite.id }
+                    params: { slug: data.id }
                   });
                 })
                 .catch(({ response }) => {
