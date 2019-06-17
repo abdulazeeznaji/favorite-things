@@ -8,15 +8,13 @@ const ApiService = {
         Vue.use(VueAxios, axios);
         Vue.axios.defaults.baseURL = API_URL;
     },
-
-
     query(resource, params) {
         return Vue.axios.get(resource, params).catch(error => {
             throw new Error(`[RWV] ApiService ${error}`);
         });
     },
     get(resource, slug = "") {
-        return Vue.axios.get(`${resource}`).catch(error => {
+        return Vue.axios.get(`${resource}/${slug}`).catch(error => {
             throw new Error(`[RWV] ApiService ${error}`);
         });
     },
@@ -27,8 +25,10 @@ const ApiService = {
         return Vue.axios.delete(resource).catch(error => {
             throw new Error(`[RWV] ApiService ${error}`);
         });
-    }
-
+    },
+    update(resource, slug, params) {
+        return Vue.axios.put(`${resource}/${slug}`, params.favorite);
+    },
 };
 
 
@@ -48,7 +48,10 @@ export const FavoriteService = {
     },
     destroy(slug) {
         return ApiService.delete(`favorites/${slug}`);
-    }
+    },
+    update(slug, params) {
+        return ApiService.update("favorites", slug, { favorite: params });
+    },
 };
 
 export const CategoriesService = {
