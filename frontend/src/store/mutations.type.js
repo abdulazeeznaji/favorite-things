@@ -5,3 +5,4 @@ export const SET_FAVORITE = "setFavorite";
 
 
 export const SET_CATEGORIES = "setCategories";
+export const RESET_STATE = "resetModuleState";

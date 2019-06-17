@@ -3,19 +3,21 @@
     <router-link :to="articleLink" class="preview-link">
       <h1 v-text="favorite.title" />
       <p v-text="favorite.description" />
-      <span>Read more...</span>
       <button class="btn btn-outline-danger btn-sm" @click="deleteFavorite">
         <i class="ion-trash-a"></i> <span>&nbsp;Delete Favorite</span>
       </button>
+      <router-link class="btn btn-sm btn-outline-secondary" :to="editArticleLink">
+        <i class="ion-edit"></i> <span>&nbsp;Edit Favorite</span>
+      </router-link>
     </router-link>
   </div>
 </template>
 
 <script>
-import {
-  FAVORITE_DELETE,
+  import {
+    FAVORITE_DELETE,
 
-} from "@/store/actions.type";
+  } from "@/store/actions.type";
 
   export default {
     name: "RwvArticlePreview",
@@ -29,7 +31,10 @@ import {
         return {
           name: "favorite",
         };
-      }
+      },
+      editArticleLink() {
+        return { name: "favorite-edit", params: { slug: this.favorite.id } };
+      },
     },
     methods: {
       async deleteFavorite() {
