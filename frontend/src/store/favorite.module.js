@@ -6,11 +6,15 @@ import {
 import {
     FAVORITE_DELETE,
     FAVORITE_PUBLISH,
-    FETCH_CATEGORIES
+    FETCH_CATEGORIES,
+    FETCH_FAVORITE,
+    FAVORITE_RESET_STATE,
+    FAVORITE_EDIT
 } from "./actions.type";
 import {
     SET_FAVORITE,
-    SET_CATEGORIES
+    SET_CATEGORIES,
+    RESET_STATE
 } from "./mutations.type";
 
 var curday = function(sp){
@@ -53,6 +57,22 @@ export const actions = {
     [FAVORITE_DELETE](context, id) {
         return FavoriteService.destroy(id);
     },
+      [FAVORITE_EDIT]({ state }) {
+        console.log(state.favorite)
+    return FavoriteService.update(state.favorite.id, state.favorite);
+  },
+    async [FETCH_FAVORITE](context, favoriteSlug, prevFavorite) {
+        if (prevFavorite !== undefined) {
+            return context.commit(SET_FAVORITE, prevFavorite);
+        }
+        const { data } = await FavoriteService.get(favoriteSlug);
+        context.commit(SET_FAVORITE, data.favorite);
+        return data;
+    },
+    [FAVORITE_RESET_STATE]({ commit }) {
+        commit(RESET_STATE);
+    }
+
 };
 
 export const mutations = {
@@ -62,6 +82,11 @@ export const mutations = {
     [SET_CATEGORIES](state, categories) {
         state.favorite.categories = categories;
     },
+    [RESET_STATE]() {
+        for (let f in state) {
+            Vue.set(state, f, initialState[f]);
+        }
+    }
 };
 
 const getters = {
