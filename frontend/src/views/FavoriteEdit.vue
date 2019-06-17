@@ -106,8 +106,8 @@
                 .then(({ data }) => {
                   this.inProgress = false;
                   this.$router.push({
-                    name: "favorite",
-                    params: { slug: data.favorite.slug }
+                    name: "home",
+                    params: { slug: data.favorite.id }
                   });
                 })
                 .catch(({ response }) => {

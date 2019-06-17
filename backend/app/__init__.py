@@ -55,7 +55,7 @@ def api_favorite_post():
 
     db.session.add(data)
     db.session.commit()
-    return jsonify({'message': 'Favorite successfully added'}), 201
+    return jsonify({'favorite': data.serialize}), 201
 
 
 # Categories GET API
