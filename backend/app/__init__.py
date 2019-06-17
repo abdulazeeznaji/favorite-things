@@ -14,17 +14,23 @@ from app.models import *
 
 # Fetch all favorites
 @application.route('/api/favorites', methods=['GET'])
-def api_feature_get():
+def api_favorite_get():
     favorites_query = Favorites.query.all()
     favorites_list = []
     for i in favorites_query:
         favorites_list.append(i.serialize)
     return jsonify({'favorites': favorites_list}), 200
 
+# Retrieve single favorite on api/favorites/<id>
+@application.route('/api/favorites/<int:id>', methods=['GET'])
+def api_single_favorite_get(id):
+    favorite = Favorites.query.get(id)
+    return jsonify({'favorite': favorite.serialize}), 201
+
 
 # Delete single favorite on api/favorites/<id>
 @application.route('/api/favorites/<int:id>', methods=['DELETE'])
-def api_feature_delete(id):
+def api_favorite_delete(id):
     favorite = Favorites.query.get(id)
     db.session.delete(favorite)
     db.session.commit()
@@ -58,8 +64,29 @@ def api_favorite_post():
     return jsonify({'favorite': data.serialize}), 201
 
 
+# Edit single favorite on api/favorites/<id>
+@application.route('/api/favorites/<int:id>', methods=['PUT'])
+def api_favorite_put(id):
+    ranking = request.json.get('ranking') if request.json.get('ranking') else db.session.query(db.func.max(Favorites.ranking)).filter(Favorites.category_area_id ==request.json.get('selected')).scalar() + 1 or 1
+    favorites = Favorites.query.filter(Favorites.category_area_id == request.json.get('selected'), Favorites.ranking >= ranking).order_by(Favorites.ranking).all()
+    i = int(ranking)
+    for favorite in favorites:
+        favorite.ranking = i + 1
+        i += 1
+        db.session.commit()
+    favorite = Favorites.query.get(id)
+    favorite.title = request.json.get('title')
+    favorite.description = request.json.get('description')
+    favorite.ranking = ranking
+    favorite.category_area_id = request.json.get('selected')
+    db.session.commit()
+
+    return jsonify({'message': 'Favorite edited successfully'}), 201
+
+
+
 # Categories GET API
-@application.route('/api/categories', methods=['GET'])
+@application.route('/api/categories/', methods=['GET'])
 def api_client_get():
     category_query = Category.query.all()
     category_list = []
